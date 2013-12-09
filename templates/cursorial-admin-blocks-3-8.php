@@ -145,7 +145,8 @@
 								<p class="post-meta">
 									<span><?php _e( 'Author:', 'cursorial' ); ?> <span class="template-data-post_author"></span></span><br/>
 									<span><?php _e( 'Date:', 'cursorial' ); ?> <span class="template-data-post_date"></span></span><br />
-									<span><?php _e( 'Type:', 'cursorial' ); ?> <span class="template-data-post_type"></span></span>
+									<span><?php _e( 'Type:', 'cursorial' ); ?> <span class="template-data-post_type"></span></span><br />
+									<span class="template-data-post_permalink"></span>
 								</p>
 								<div class="post-excerpt template-data template-data-post_excerpt"></div>
 								<div class="widget-control-actions">

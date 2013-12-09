@@ -136,3 +136,6 @@
 #cursorial-admin.cursorial-3-8 .widget-liquid-right {
 	width: 30%;
 }
+#cursorial-admin.cursorial-3-8 .template-data-post_permalink {
+	word-break: break-all;
+}
