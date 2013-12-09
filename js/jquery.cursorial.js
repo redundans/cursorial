@@ -1002,7 +1002,7 @@ $(function(){
 				receive: $.proxy( function( event, ui ) {
 					receivePost.apply( this, [ ui.item, ui.sender ] );
 				}, this ),
-				revert: true,
+				revert: 0,
 				connectWith: '.cursorial-block ' + options.target,
 				delay: 200,
 				distance: 30

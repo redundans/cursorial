@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cursorial\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-09 17:11+0100\n"
-"PO-Revision-Date: 2013-12-09 17:12+0100\n"
+"POT-Creation-Date: 2013-12-09 17:32+0100\n"
+"PO-Revision-Date: 2013-12-09 17:32+0100\n"
 "Last-Translator: Jesper Nilsson <jesper@klandestino.se>\n"
 "Language-Team: Klandestino <olof@klandestino.se>\n"
 "Language: sv_SE\n"
@@ -73,15 +73,7 @@ msgstr "Du måste spara det här blocket innan du kan ändra bild."
 msgid "Block"
 msgstr "Block"
 
-#: ../cursorial.class.php:660 ../cursorial.class.php:666
-#: ../cursorial.class.php:667 ../cursorial.class.php:668
-#: ../cursorial.class.php:669 ../cursorial.class.php:670
-#: ../cursorial.class.php:672
-msgid "Ghosts"
-msgstr "Spöklänkar"
-
-#: ../cursorial.class.php:661 ../cursorial.class.php:663
-#: ../cursorial.class.php:664 ../cursorial.class.php:665
+#: ../cursorial.class.php:660
 msgid "Ghost"
 msgstr "Spöklänk"
 
@@ -158,48 +150,52 @@ msgstr "Författare:"
 msgid "Date:"
 msgstr "Datum:"
 
-#: ../templates/cursorial-admin-blocks-3-8.php:152
-#: ../templates/cursorial-admin-blocks.php:152
+#: ../templates/cursorial-admin-blocks-3-8.php:148
+msgid "Type:"
+msgstr ""
+
+#: ../templates/cursorial-admin-blocks-3-8.php:154
+#: ../templates/cursorial-admin-blocks.php:153
 msgid "Remove"
 msgstr "Ta bort"
 
-#: ../templates/cursorial-admin-blocks-3-8.php:155
-#: ../templates/cursorial-admin-blocks.php:155
+#: ../templates/cursorial-admin-blocks-3-8.php:157
+#: ../templates/cursorial-admin-blocks.php:156
 msgid "Edit"
 msgstr "Ändra"
 
-#: ../templates/cursorial-admin-blocks-3-8.php:156
-#: ../templates/cursorial-admin-blocks.php:156
+#: ../templates/cursorial-admin-blocks-3-8.php:158
+#: ../templates/cursorial-admin-blocks.php:157
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../templates/cursorial-admin-blocks-3-8.php:157
-#: ../templates/cursorial-admin-blocks.php:157
+#: ../templates/cursorial-admin-blocks-3-8.php:159
+#: ../templates/cursorial-admin-blocks.php:158
 msgid "Save"
 msgstr "Spara"
 
-#: ../templates/cursorial-admin-blocks.php:169
+#: ../templates/cursorial-admin-blocks.php:170
 msgid "Create content"
 msgstr "Skapa spöklänk"
 
-#: ../templates/cursorial-admin-blocks.php:173
+#: ../templates/cursorial-admin-blocks.php:174
 #: ../templates/cursorial-admin-widget.php:75
 msgid "Title"
 msgstr "Titel"
 
-#: ../templates/cursorial-admin-blocks.php:180
+#: ../templates/cursorial-admin-blocks.php:181
 msgid "Choose image"
 msgstr "Välj utvald bild"
 
-#: ../templates/cursorial-admin-blocks.php:183
+#: ../templates/cursorial-admin-blocks.php:184
 msgid "Description"
 msgstr "Innehåll"
 
-#: ../templates/cursorial-admin-blocks.php:187
+#: ../templates/cursorial-admin-blocks.php:188
 msgid "Link"
 msgstr "Länk"
 
-#: ../templates/cursorial-admin-blocks.php:191
+#: ../templates/cursorial-admin-blocks.php:192
 msgid "Submit"
 msgstr "Publicera"
 
@@ -281,6 +277,9 @@ msgstr "Anpassat widget-block"
 #: ../widgets/cursorial_widget.php:123
 msgid "Custom Widget Blocks"
 msgstr "Anpassade widget-block"
+
+#~ msgid "Ghosts"
+#~ msgstr "Spöklänkar"
 
 #~ msgid "%s is unsaved"
 #~ msgstr "%s är osparad"
