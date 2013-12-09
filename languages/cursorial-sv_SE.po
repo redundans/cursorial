@@ -2,138 +2,206 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cursorial\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-06 20:19+0100\n"
-"PO-Revision-Date: 2012-02-06 20:24+0100\n"
-"Last-Translator: spurge <olof@klandestino.se>\n"
+"POT-Creation-Date: 2013-12-09 17:11+0100\n"
+"PO-Revision-Date: 2013-12-09 17:12+0100\n"
+"Last-Translator: Jesper Nilsson <jesper@klandestino.se>\n"
 "Language-Team: Klandestino <olof@klandestino.se>\n"
+"Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e;_x;_n:1,2\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-Language: Swedish\n"
-"X-Poedit-Country: SWEDEN\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.6.1\n"
 "X-Poedit-SearchPath-0: ..\n"
 "X-Poedit-SearchPath-1: ../templates\n"
 "X-Poedit-SearchPath-2: ../widgets\n"
 
-#: ../cursorial.class.php:110
+#: ../cursorial.class.php:117
 #, php-format
 msgid "Edit cursorial blocks in %s"
 msgstr "Ändra cursorial-block i %s"
 
-#: ../cursorial.class.php:132
+#: ../cursorial.class.php:139
 msgid "Set featured image"
 msgstr "Ändra utvald bild"
 
-#: ../cursorial.class.php:133
+#: ../cursorial.class.php:140
 msgid "Show content"
 msgstr "Visa innehåll"
 
-#: ../cursorial.class.php:134
+#: ../cursorial.class.php:141
 msgid "Hide content"
 msgstr "Göm innehåll"
 
-#: ../cursorial.class.php:135
+#: ../cursorial.class.php:142
 msgid "Visible:"
 msgstr "Visa:"
 
-#: ../cursorial.class.php:136
+#: ../cursorial.class.php:143
 msgid "post title"
 msgstr "titel"
 
-#: ../cursorial.class.php:137
+#: ../cursorial.class.php:144
 msgid "image"
 msgstr "bild"
 
-#: ../cursorial.class.php:138
+#: ../cursorial.class.php:145
 msgid "post excerpt"
 msgstr "sammanfattning"
 
-#: ../cursorial.class.php:139
+#: ../cursorial.class.php:146
 msgid "post content"
 msgstr "innehåll"
 
-#: ../cursorial.class.php:140
+#: ../cursorial.class.php:147
 msgid "post date"
 msgstr "datum"
 
-#: ../cursorial.class.php:141
+#: ../cursorial.class.php:148
 #, php-format
 msgid "%s has some unsaved changes."
 msgstr "%s har några osparade förändringar."
 
-#: ../cursorial.class.php:142
+#: ../cursorial.class.php:149
 msgid "You need to save this block before you can change image."
 msgstr "Du måste spara det här blocket innan du kan ändra bild."
 
-#: ../cursorial.class.php:646
+#: ../cursorial.class.php:653
 msgid "Block"
 msgstr "Block"
 
-#: ../templates/cursorial-admin-blocks.php:40
+#: ../cursorial.class.php:660 ../cursorial.class.php:666
+#: ../cursorial.class.php:667 ../cursorial.class.php:668
+#: ../cursorial.class.php:669 ../cursorial.class.php:670
+#: ../cursorial.class.php:672
+msgid "Ghosts"
+msgstr "Spöklänkar"
+
+#: ../cursorial.class.php:661 ../cursorial.class.php:663
+#: ../cursorial.class.php:664 ../cursorial.class.php:665
+msgid "Ghost"
+msgstr "Spöklänk"
+
+#: ../templates/cursorial-admin-blocks-3-8.php:41
+#: ../templates/cursorial-admin-blocks.php:41
 #, php-format
 msgid "Cursorial » %s"
 msgstr "Cursorial » %s"
 
-#: ../templates/cursorial-admin-blocks.php:65
-#: ../templates/cursorial-admin-blocks.php:75
+#: ../templates/cursorial-admin-blocks-3-8.php:66
+#: ../templates/cursorial-admin-blocks-3-8.php:76
+#: ../templates/cursorial-admin-blocks.php:66
+#: ../templates/cursorial-admin-blocks.php:76
 msgid "Save block"
 msgstr "Spara block"
 
-#: ../templates/cursorial-admin-blocks.php:71
-msgid "Here's a list of posts. To add posts to this list, search for content in the box to the right and drag them into this space. You can also drag posts between blocks."
-msgstr "Här är en lista med inlägg. För att lägga till inlägg, sök efter innehåll i sökfältet till höger och flytta sedan inläggen hit. Du kan också flytta innehåll mellan block."
+#: ../templates/cursorial-admin-blocks-3-8.php:72
+#: ../templates/cursorial-admin-blocks.php:72
+msgid ""
+"Here's a list of posts. To add posts to this list, search for content in the "
+"box to the right and drag them into this space. You can also drag posts "
+"between blocks."
+msgstr ""
+"Här är en lista med inlägg. För att lägga till inlägg, sök efter innehåll i "
+"sökfältet till höger och flytta sedan inläggen hit. Du kan också flytta "
+"innehåll mellan block."
 
-#: ../templates/cursorial-admin-blocks.php:82
+#: ../templates/cursorial-admin-blocks-3-8.php:83
+#: ../templates/cursorial-admin-blocks.php:83
 msgid "Dummy block"
 msgstr "Dummy-block"
 
-#: ../templates/cursorial-admin-blocks.php:85
+#: ../templates/cursorial-admin-blocks-3-8.php:86
+#: ../templates/cursorial-admin-blocks.php:86
 msgid "This is a dummy block occupying space."
 msgstr "Det här är ett dummy-block."
 
-#: ../templates/cursorial-admin-blocks.php:109
+#: ../templates/cursorial-admin-blocks-3-8.php:110
+#: ../templates/cursorial-admin-blocks.php:110
 msgid "Publish"
 msgstr "Publicera"
 
-#: ../templates/cursorial-admin-blocks.php:115
+#: ../templates/cursorial-admin-blocks-3-8.php:116
+#: ../templates/cursorial-admin-blocks.php:116
 msgid "Save all blocks"
 msgstr "Spara alla block"
 
-#: ../templates/cursorial-admin-blocks.php:124
+#: ../templates/cursorial-admin-blocks-3-8.php:125
+#: ../templates/cursorial-admin-blocks.php:125
 msgid "Find content"
 msgstr "Hitta innehåll"
 
-#: ../templates/cursorial-admin-blocks.php:130
-msgid "Enter keywords below to find content. Then drag the posts to a block and drop them there."
-msgstr "Skriv in sökord här nedan för att hitta inlägg. Drag och släpp sedan inläggen till blocken."
-
+#: ../templates/cursorial-admin-blocks-3-8.php:131
 #: ../templates/cursorial-admin-blocks.php:131
+msgid ""
+"Enter keywords below to find content. Then drag the posts to a block and "
+"drop them there."
+msgstr ""
+"Skriv in sökord här nedan för att hitta inlägg. Drag och släpp sedan "
+"inläggen till blocken."
+
+#: ../templates/cursorial-admin-blocks-3-8.php:132
+#: ../templates/cursorial-admin-blocks.php:132
 msgid "Search keywords:"
 msgstr "Sökord:"
 
-#: ../templates/cursorial-admin-blocks.php:145
+#: ../templates/cursorial-admin-blocks-3-8.php:146
+#: ../templates/cursorial-admin-blocks.php:146
 msgid "Author:"
 msgstr "Författare:"
 
-#: ../templates/cursorial-admin-blocks.php:146
+#: ../templates/cursorial-admin-blocks-3-8.php:147
+#: ../templates/cursorial-admin-blocks.php:147
 msgid "Date:"
 msgstr "Datum:"
 
-#: ../templates/cursorial-admin-blocks.php:151
+#: ../templates/cursorial-admin-blocks-3-8.php:152
+#: ../templates/cursorial-admin-blocks.php:152
 msgid "Remove"
 msgstr "Ta bort"
 
-#: ../templates/cursorial-admin-blocks.php:154
+#: ../templates/cursorial-admin-blocks-3-8.php:155
+#: ../templates/cursorial-admin-blocks.php:155
 msgid "Edit"
 msgstr "Ändra"
 
-#: ../templates/cursorial-admin-blocks.php:155
+#: ../templates/cursorial-admin-blocks-3-8.php:156
+#: ../templates/cursorial-admin-blocks.php:156
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: ../templates/cursorial-admin-blocks-3-8.php:157
+#: ../templates/cursorial-admin-blocks.php:157
 msgid "Save"
 msgstr "Spara"
+
+#: ../templates/cursorial-admin-blocks.php:169
+msgid "Create content"
+msgstr "Skapa spöklänk"
+
+#: ../templates/cursorial-admin-blocks.php:173
+#: ../templates/cursorial-admin-widget.php:75
+msgid "Title"
+msgstr "Titel"
+
+#: ../templates/cursorial-admin-blocks.php:180
+msgid "Choose image"
+msgstr "Välj utvald bild"
+
+#: ../templates/cursorial-admin-blocks.php:183
+msgid "Description"
+msgstr "Innehåll"
+
+#: ../templates/cursorial-admin-blocks.php:187
+msgid "Link"
+msgstr "Länk"
+
+#: ../templates/cursorial-admin-blocks.php:191
+msgid "Submit"
+msgstr "Publicera"
 
 #: ../templates/cursorial-admin-widget.php:14
 msgid "Title:"
@@ -162,10 +230,6 @@ msgstr "Maximalt antal inlägg"
 #: ../templates/cursorial-admin-widget.php:68
 msgid "What fields should be available?"
 msgstr "Vilka fält ska vara tillgängliga?"
-
-#: ../templates/cursorial-admin-widget.php:75
-msgid "Title"
-msgstr "Titel"
 
 #: ../templates/cursorial-admin-widget.php:77
 msgid "Date"

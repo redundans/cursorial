@@ -482,7 +482,7 @@ class Cursorial {
 		}*/
 
 		// Okidok
-		return $excerpt;
+		return wpautop( $excerpt );
 	}
 
 	/**
@@ -655,6 +655,11 @@ class Cursorial {
 				'public' => false
 			)
 		);
+
+		$labels = array(
+		    'name' => __( 'Ghost', 'cursorial' )
+		);
+	    register_post_type( 'ghost', array( 'public' => true, 'labels'  => $labels, 'show_ui' => false, 'show_in_menu' => false ) );
 	}
 
 }
@@ -669,7 +674,9 @@ class Cursorial {
 		$post_content = $_POST['post_content'];
 		$post_guid = $_POST['post_guid'];
 
-		$post_id = wp_insert_post( array( 'post_content' => $post_content, 'post_title' => $post_title, 'guid' => $post_guid, 'post_type' => 'ghost' ) ); 
+		$post_id = wp_insert_post( array( 'post_content' => $post_content, 'post_title' => $post_title, 'guid' => $post_guid, 'post_type' => 'ghost', 'post_status' => 'publish' ) ); 
+
+		add_post_meta($post_id, 'ghost_link', $post_guid, TRUE); 
 		
 		if($_POST['image_id'] != '') 
 			set_post_thumbnail( $post_id, $_POST['image_id'] );

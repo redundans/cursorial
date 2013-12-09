@@ -163,6 +163,39 @@
 					</div><!-- #cursorial-search-result -->
 				</div><!-- .widgets-sortables -->
 			</div><!-- #cursorial-search -->
+
+			<div id="poststuff">
+			<div id="cursorial-create" class="postbox ">
+				<h3 class="hndle"><span><?php _e( 'Create content', 'cursorial' ); ?></span></h3>
+				<div class="inside">
+					<form id="create_cursorial">
+
+					<label for="post_title"><?php _e( 'Title', 'cursorial' ); ?>
+					<input type="text" id="post_title" name="post_title" class="widefat" autocomplete="off" value="">
+					</label>
+
+					<label for="upload_image">
+						<div id="upload_image_thumbnail"></div>
+					    <input id="upload_image" type="hidden" size="36" name="ad_image" value="http://" /> 
+					    <p><a id="upload_image_button"><?php _e( 'Choose image', 'cursorial' ); ?></a></p>
+					</label>
+
+					<label for="post_content"><?php _e( 'Description', 'cursorial' ); ?>
+					<textarea id="post_content" name="post_content" class="widefat" autocomplete="off" value=""></textarea>
+					</label>
+
+					<label for="post_guid"><?php _e( 'Link', 'cursorial' ); ?>
+					<input type="text" id="post_guid" name="post_guid" class="widefat" autocomplete="off" value="">
+					</label>
+
+					<input type="submit" id="submit_post" name="submit_post" class="button button-primary button-large" value="<?php _e( 'Submit', 'cursorial' ); ?>">
+
+					</form>
+					<div class="clear"></div>
+				</div>
+			</div><!-- #cursorial-create -->
+			</div>
+
 		</div><!-- #widgets-right -->
 	</div><!-- .widgets-liquid-right -->
 

@@ -22,6 +22,7 @@
 			buttons: {
 				save: 'input.cursorial-block-save', // The save button
 				post_edit: 'input.cursorial-post-edit', // Post edit buttons
+				post_cancel: 'input.cursorial-post-cancel', // Post cancel buttons
 				post_save: 'input.cursorial-post-save', // Post save buttons
 				post_remove: 'a.cursorial-post-remove' // Post remove buttons
 			},
@@ -142,8 +143,8 @@
 							<div class="widget-inside">
 								<p class="post-image template-data template-data-image"></p>
 								<p class="post-meta">
-									<span class="template-data"><?php _e( 'Author:', 'cursorial' ); ?> <span class="template-data-post_author"></span></span><br/>
-									<span class="template-data"><?php _e( 'Date:', 'cursorial' ); ?> <span class="template-data-post_date"></span></span>
+									<span><?php _e( 'Author:', 'cursorial' ); ?> <span class="template-data-post_author"></span></span><br/>
+									<span><?php _e( 'Date:', 'cursorial' ); ?> <span class="template-data-post_date"></span></span>
 								</p>
 								<div class="post-excerpt template-data template-data-post_excerpt"></div>
 								<div class="widget-control-actions">
@@ -152,6 +153,7 @@
 									</div>
 									<div class="alignright">
 										<input class="button-primary widget-control-save cursorial-post-edit" type="submit" value="<?php _e( 'Edit', 'cursorial' ); ?>" name="edit"/>
+										<input class="button widget-control-cancel cursorial-post-cancel" type="button" value="<?php _e( 'Cancel', 'cursorial' ); ?>" name="cancel"/>
 										<input class="button-primary widget-control-save cursorial-post-save" type="submit" value="<?php _e( 'Save', 'cursorial' ); ?>" name="edit"/>
 									</div>
 									<div class="clear"></div>

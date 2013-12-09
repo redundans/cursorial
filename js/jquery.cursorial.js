@@ -75,7 +75,7 @@ $(function(){
 						}
 					} else if ( typeof( data[ i ] ) == 'string' ) {
 						// Add html-data and hide too long contents
-						element.html( data[ i ] ).cursorialHideLongContent();
+						element.html( data[ i ] ); //.cursorialHideLongContent();
 					}
 
 					// If this field is set to be hidden
@@ -149,7 +149,7 @@ $(function(){
 			var settings = $( this ).data( 'cursorial-post-settings' );
 
 			if ( placeholder.length > 0 ) {
-				placeholder.css( { visibility: 'visible' } );
+				placeholder.css( { visibility: 'visible', width: '100%' } );
 
 				placeholder.removeClass( 'cursorial-child-depth-1' );
 				setChildStatus.apply( this, [ false ] );
@@ -286,7 +286,7 @@ $(function(){
 
 				var data = $( this ).data( 'cursorial-post-data' );
 				var settings = $( this ).data( 'cursorial-post-settings' );
-				var fieldSettings = getFieldSettings.apply( this );	
+				var fieldSettings = getFieldSettings.apply( this );
 
 				for( var i in fieldSettings ) {
 					var element = $( this ).find( '.template-data-' + i );
@@ -1173,6 +1173,41 @@ $(function(){
 			}
 		}
 
+		$('#create_cursorial').submit(function( event ) {
+	  		event.preventDefault();
+			var data = {
+				action: 'add_ghost',
+				post_title: $("#post_title").val(),
+				post_content: $("#post_content").val(),
+				post_guid: $("#post_guid").val(),
+				image_id: $("#upload_image").val(),
+			};
+	  		if( data.post_title == '' || data.post_content == '' || data.post_guid == '' ){
+	  			alert('Please make sure you didnt miss any post data.');
+	  			return false;
+	  		}
+	  		jQuery.post(ajaxurl, data, function(response) {
+	  			$('#create_cursorial :not([type=submit])').each( function(i){
+	  				$(this).val('');
+	  			});
+	  			$("#upload_image_thumbnail").html('');
+
+	  			val = data.post_title.replace( /\s+/g, ' ' ).replace( /^\s|\s$/, '' );
+	  			$("#cursorial-search-field").val( val );
+
+	  			$.ajax( {
+					url: CURSORIAL_PLUGIN_URL + 'json.php',
+					type: 'POST',
+					data: {
+						action: 'search',
+						query: val
+					},
+					dataType: 'json',
+					success: $.proxy( results, this )
+				} );
+			});
+		});
+
 		/**
 		 * Sets a timeout until next search
 		 * If there's a keystroke, the timeout will be recreated.
@@ -1487,37 +1522,7 @@ $(function(){
 
 
 
-	$('#create_cursorial').submit(function( event ) {
-  		event.preventDefault();
-		var data = {
-			action: 'add_ghost',
-			post_title: $("#post_title").val(),
-			post_content: $("#post_content").val(),
-			image_id: $("#upload_image").val(),
-		};
-  		jQuery.post(ajaxurl, data, function(response) {
-  			//$('#cursorial-search-field').val( $("#post_title").val() ):
-		});
 
-  		/*
-		var testobject = { ID: 0, comment_count: "0", comment_status: "closed", cursorial_depth: 0, cursorial_image: $("#upload_image").val(), filter: "raw", guid: $("#post_guid").val(), image: "", menu_order: 2, ping_status: "open", pinged: "", post_author: "Jacqueline Otabbong", post_content: $("#post_content").val(), post_content_filtered: "", post_date: "2013-12-02 18:33:57", post_date_gmt: "2013-12-02 17:33:57", post_excerpt: $("#post_content").val(), post_mime_type: "", post_modified: "2013-12-02 18:33:57", post_modified_gmt: "2013-12-02 17:33:57", post_name: "svar-till-seminariet-ekoskog-22-nov-om skogens-ekotjanster-2", post_parent: 0, post_password: "", post_status: "publish", post_title: $("#post_title").val(),
-post_type: "post", to_ping: "" };
-		var template = $("#cursorial-search-result .template");
-		var target = $('.cursorial-posts');
-		var buttons = {post_cancel: "input.cursorial-post-cancel", post_edit: "input.cursorial-post-edit", post_remove: "a.cursorial-post-remove", post_save: "input.cursorial-post-save", save: "input.cursorial-block-save" };
- 		var blocks = ".cursorial-block .cursorial-posts";
-
-		template.first().clone().cursorialPost( {
-			data: testobject,
-			buttons: buttons,
-			connectToBlocks: blocks,
-			create: function() {
-				target.append( $( this ) );
-				$( this ).show();
-			}
-		});
-		*/
-	});
 } );
 
 /**

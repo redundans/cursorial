@@ -105,78 +105,88 @@ class Cursorial_Query {
 		}
 
 		$this->search_keywords = explode( ' ', trim( $terms ) );
-		$date = strtotime( $terms );
 
-		foreach ( array(
-			'title' => 'post_title_filter',
-			'category' => array(
-				'tax_query' => array(
-					array(
-						'taxonomy' => 'category',
-						'field' => 'slug',
-						'terms' => $this->search_keywords
-					)
-				)
-			),
-			'tags' => array(
-				'tax_query' => array(
-					array(
-						'taxonomy' => 'post_tag',
-						'field' => 'slug',
-						'terms' => $this->search_keywords
-					)
-				)
-			),
-			'author' => array(
-				'author_name' => implode( ',', $this->search_keywords )
-			),
-			array(
-				'year' => date( 'Y', $date ),
-				'monthnum' => date( 'n', $date ),
-				'day' => date( 'j', $date ),
-				'hour' => date( 'H', $date ),
-				'minute' => date( 'i', $date )
-			),
-			array(
-				'year' => date( 'Y', $date ),
-				'monthnum' => date( 'n', $date ),
-				'day' => date( 'j', $date ),
-				'hour' => date( 'H', $date )
-			),
-			array(
-				'year' => date( 'Y', $date ),
-				'monthnum' => date( 'n', $date ),
-				'day' => date( 'j', $date )
-			),
-			array(
-				'year' => date( 'Y', $date ),
-				'monthnum' => date( 'n', $date )
-			),
-			array(
-				'year' => date( 'Y', $date )
-			),
-			array(
-				'posttype' => 'page'
-			),
-		) as $field => $args ) {
-			if ( is_string( $args ) ) {
-				add_filter( 'posts_where', array( &$this, $args ) );
-				$query = new WP_Query( 'post_type=any' );
-				$posts = $query->get_posts();
-				remove_filter( 'posts_where', array( &$this, $args ) );
-			} else {
-				$args[ 'post_type' ] = 'any';
-				$query = new WP_Query( $args );
-				$posts = $query->get_posts();
+		if ( substr( $this->search_keywords[0], 0, 4) === 'http' ) {
+			$cursorial_search_id = url_to_postid( $this->search_keywords[0] );
+		}
+
+		if ( $cursorial_search_id != 0 ) {
+			$post = get_post( $cursorial_search_id );
+			if ( $post->post_type != Cursorial::POST_TYPE ) {
+				$this->populate_results( $post );
 			}
+		} else {
 
-			foreach ( $posts as $post ) {
-				if ( count( $this->results ) >= $this->search_numberposts ) {
-					break;
+			$date = strtotime( $terms );
+
+			foreach ( array(
+				'title' => 'post_title_filter',
+				'category' => array(
+					'tax_query' => array(
+						array(
+							'taxonomy' => 'category',
+							'field' => 'slug',
+							'terms' => $this->search_keywords
+						)
+					)
+				),
+				'tags' => array(
+					'tax_query' => array(
+						array(
+							'taxonomy' => 'post_tag',
+							'field' => 'slug',
+							'terms' => $this->search_keywords
+						)
+					)
+				),
+				'author' => array(
+					'author_name' => implode( ',', $this->search_keywords )
+				),
+				array(
+					'year' => date( 'Y', $date ),
+					'monthnum' => date( 'n', $date ),
+					'day' => date( 'j', $date ),
+					'hour' => date( 'H', $date ),
+					'minute' => date( 'i', $date )
+				),
+				array(
+					'year' => date( 'Y', $date ),
+					'monthnum' => date( 'n', $date ),
+					'day' => date( 'j', $date ),
+					'hour' => date( 'H', $date )
+				),
+				array(
+					'year' => date( 'Y', $date ),
+					'monthnum' => date( 'n', $date ),
+					'day' => date( 'j', $date )
+				),
+				array(
+					'year' => date( 'Y', $date ),
+					'monthnum' => date( 'n', $date )
+				),
+				array(
+					'year' => date( 'Y', $date )
+				),
+			) as $field => $args ) {
+				if ( is_string( $args ) ) {
+					add_filter( 'posts_where', array( &$this, $args ) );
+					$query = new WP_Query( 'post_type=any' );
+					$posts = $query->get_posts();
+					remove_filter( 'posts_where', array( &$this, $args ) );
+				} else {
+					$args[ 'post_type' ] = 'any';
+					$query = new WP_Query( $args );
+					$posts = $query->get_posts();
 				}
 
-				if ( $post->post_type != Cursorial::POST_TYPE ) {
-					$this->populate_results( $post );
+				foreach ( $posts as $post ) {
+					if ( count( $this->results ) >= $this->search_numberposts ) {
+						break;
+					}
+
+					if ( $post->post_type != Cursorial::POST_TYPE ) {
+						$this->populate_results( $post );
+					}
 				}
 			}
 		}
