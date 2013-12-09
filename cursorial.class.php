@@ -86,6 +86,13 @@ class Cursorial {
 				'thickbox'
 			)
 		);
+
+		wp_enqueue_script(
+			'jquery-cursorial-media',
+			CURSORIAL_PLUGIN_URL . 'js/jquery.cursorial.media.js'
+		);
+
+		wp_enqueue_media();
 	}
 
 	/**
@@ -651,3 +658,23 @@ class Cursorial {
 	}
 
 }
+
+
+	add_action( 'wp_ajax_add_ghost', 'add_ghost_callback' );
+
+	function add_ghost_callback() {
+		global $wpdb; // this is how you get access to the database
+
+		$post_title = $_POST['post_title'];
+		$post_content = $_POST['post_content'];
+		$post_guid = $_POST['post_guid'];
+
+		$post_id = wp_insert_post( array( 'post_content' => $post_content, 'post_title' => $post_title, 'guid' => $post_guid, 'post_type' => 'ghost' ) ); 
+		
+		if($_POST['image_id'] != '') 
+			set_post_thumbnail( $post_id, $_POST['image_id'] );
+
+		echo $post_id;
+
+		die(); // this is required to return a proper result
+	}

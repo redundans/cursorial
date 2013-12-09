@@ -4,7 +4,10 @@
  * @function
  * @param {object} $ jQuery alias
  */
-( function( $ ) {
+
+var $ = jQuery.noConflict();
+
+$(function(){
 	/**
 	 * jQuery object's methods
 	 * @name fn
@@ -12,6 +15,7 @@
 	 * @see anonymous
 	 * @namespace jQuery user methods container (plugins)
 	 */
+
 	/**
 	 * Defines a node-element as a cursorial post and adds content to it.
 	 * @function
@@ -1117,7 +1121,7 @@
 						break;
 				}
 			}
-		} );
+		});
 	};
 
 	/**
@@ -1480,7 +1484,41 @@
 			}
 		} );
 	}
-} )( jQuery );
+
+
+
+	$('#create_cursorial').submit(function( event ) {
+  		event.preventDefault();
+		var data = {
+			action: 'add_ghost',
+			post_title: $("#post_title").val(),
+			post_content: $("#post_content").val(),
+			image_id: $("#upload_image").val(),
+		};
+  		jQuery.post(ajaxurl, data, function(response) {
+  			//$('#cursorial-search-field').val( $("#post_title").val() ):
+		});
+
+  		/*
+		var testobject = { ID: 0, comment_count: "0", comment_status: "closed", cursorial_depth: 0, cursorial_image: $("#upload_image").val(), filter: "raw", guid: $("#post_guid").val(), image: "", menu_order: 2, ping_status: "open", pinged: "", post_author: "Jacqueline Otabbong", post_content: $("#post_content").val(), post_content_filtered: "", post_date: "2013-12-02 18:33:57", post_date_gmt: "2013-12-02 17:33:57", post_excerpt: $("#post_content").val(), post_mime_type: "", post_modified: "2013-12-02 18:33:57", post_modified_gmt: "2013-12-02 17:33:57", post_name: "svar-till-seminariet-ekoskog-22-nov-om skogens-ekotjanster-2", post_parent: 0, post_password: "", post_status: "publish", post_title: $("#post_title").val(),
+post_type: "post", to_ping: "" };
+		var template = $("#cursorial-search-result .template");
+		var target = $('.cursorial-posts');
+		var buttons = {post_cancel: "input.cursorial-post-cancel", post_edit: "input.cursorial-post-edit", post_remove: "a.cursorial-post-remove", post_save: "input.cursorial-post-save", save: "input.cursorial-block-save" };
+ 		var blocks = ".cursorial-block .cursorial-posts";
+
+		template.first().clone().cursorialPost( {
+			data: testobject,
+			buttons: buttons,
+			connectToBlocks: blocks,
+			create: function() {
+				target.append( $( this ) );
+				$( this ).show();
+			}
+		});
+		*/
+	});
+} );
 
 /**
  * These lines of code creates a callback from the "Set featured image"-functionality that is

@@ -155,6 +155,9 @@ class Cursorial_Query {
 			array(
 				'year' => date( 'Y', $date )
 			),
+			array(
+				'posttype' => 'page'
+			),
 		) as $field => $args ) {
 			if ( is_string( $args ) ) {
 				add_filter( 'posts_where', array( &$this, $args ) );
