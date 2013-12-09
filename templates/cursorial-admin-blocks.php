@@ -147,6 +147,7 @@
 									<span class="template-data"><?php _e( 'Date:', 'cursorial' ); ?> <span class="template-data-post_date"></span></span>
 								</p>
 								<div class="post-excerpt template-data template-data-post_excerpt"></div>
+								<div class="post-excerpt template-data template-data-ghost_permalink"></div>
 								<div class="widget-control-actions">
 									<div class="alignleft">
 										<a class="widget-control-remove cursorial-post-remove" href="#remove"><span><?php _e( 'Remove', 'cursorial' ); ?></span></a>

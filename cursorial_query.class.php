@@ -69,9 +69,11 @@ class Cursorial_Query {
 			if ( $original ) {
 				$post->post_type = $original->post_type;
 				$post->post_permalink = get_permalink( $original );
+				$post->ghost_permalink = get_post_meta( $original, 'ghost_link', TRUE );
 			}
 		} else {
 			$post->post_permalink = get_permalink( $post_id );
+			$post->ghost_permalink = get_post_meta( $post_id, 'ghost_link', TRUE );
 		}
 
 		$hidden_fields = get_post_meta( $post_id, 'cursorial-post-hidden-fields', true );
