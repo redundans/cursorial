@@ -69,7 +69,7 @@ class Cursorial_Query {
 			if ( $original ) {
 				$post->post_type = $original->post_type;
 				$post->post_permalink = get_permalink( $original );
-				$post->ghost_permalink = get_post_meta( $original, 'ghost_link', TRUE );
+				$post->ghost_permalink = get_post_meta( $ref_id, 'ghost_link', TRUE );
 			}
 		} else {
 			$post->post_permalink = get_permalink( $post_id );
