@@ -23,7 +23,6 @@
 				save: 'input.cursorial-block-save', // The save button
 				post_edit: 'input.cursorial-post-edit', // Post edit buttons
 				post_save: 'input.cursorial-post-save', // Post save buttons
-				post_cancel: 'input.cursorial-post-cancel', // Post cancel buttons
 				post_remove: 'a.cursorial-post-remove' // Post remove buttons
 			},
 			target: '.cursorial-posts', // Where to place posts
@@ -36,7 +35,7 @@
 		} );
 	} );
 </script>
-<div id="cursorial-admin" class="wrap">
+<div id="cursorial-admin" class="wrap cursorial-3-8">
 	<div id="icon-themes" class="icon32"><br/></div>
 	<h2><?php printf( __( 'Cursorial » %s', 'cursorial' ), $cursorial_admin->label ); ?></h2>
 
@@ -153,7 +152,6 @@
 									</div>
 									<div class="alignright">
 										<input class="button-primary widget-control-save cursorial-post-edit" type="submit" value="<?php _e( 'Edit', 'cursorial' ); ?>" name="edit"/>
-										<input class="button widget-control-cancel cursorial-post-cancel" type="button" value="<?php _e( 'Cancel', 'cursorial' ); ?>" name="cancel"/>
 										<input class="button-primary widget-control-save cursorial-post-save" type="submit" value="<?php _e( 'Save', 'cursorial' ); ?>" name="edit"/>
 									</div>
 									<div class="clear"></div>

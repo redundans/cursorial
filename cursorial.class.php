@@ -635,7 +635,7 @@ class Cursorial {
 		);
 
 		/**
-		 * Every post is connected to a specific area with it's own loop. 
+		 * Every post is connected to a specific area with it's own loop.
 		 * These areas are stored as a taxonomy.
 		 */
 		register_taxonomy(

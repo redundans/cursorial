@@ -45,7 +45,11 @@ class Cursorial_Admin {
 	public function admin_page() {
 		global $cursorial_admin;
 		$cursorial_admin = $this;
-		$this->cursorial->get_template( 'cursorial-admin-blocks', sanitize_title( $this->label ) );
+		if ( version_compare( $GLOBALS['wp_version'], '3.8-alpha', '>' ) ) {
+			$this->cursorial->get_template( 'cursorial-admin-blocks-3-8', sanitize_title( $this->label ) );
+		} else {
+			$this->cursorial->get_template( 'cursorial-admin-blocks', sanitize_title( $this->label ) );
+		}
 	}
 
 	/**
