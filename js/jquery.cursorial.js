@@ -71,7 +71,7 @@
 						}
 					} else if ( typeof( data[ i ] ) == 'string' ) {
 						// Add html-data and hide too long contents
-						element.html( data[ i ] ).cursorialHideLongContent();
+						element.html( data[ i ] ); //.cursorialHideLongContent();
 					}
 
 					// If this field is set to be hidden
