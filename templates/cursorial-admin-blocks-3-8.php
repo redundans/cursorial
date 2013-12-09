@@ -144,7 +144,8 @@
 								<p class="post-image template-data template-data-image"></p>
 								<p class="post-meta">
 									<span><?php _e( 'Author:', 'cursorial' ); ?> <span class="template-data-post_author"></span></span><br/>
-									<span><?php _e( 'Date:', 'cursorial' ); ?> <span class="template-data-post_date"></span></span>
+									<span><?php _e( 'Date:', 'cursorial' ); ?> <span class="template-data-post_date"></span></span><br />
+									<span><?php _e( 'Type:', 'cursorial' ); ?> <span class="template-data-post_type"></span></span>
 								</p>
 								<div class="post-excerpt template-data template-data-post_excerpt"></div>
 								<div class="widget-control-actions">
