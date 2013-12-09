@@ -16,7 +16,7 @@ class Cursorial_Block {
 	 * Block settings
 	 */
 	private $settings;
-	
+
 	// CONSTRUCTOR
 
 	/**
@@ -105,7 +105,7 @@ class Cursorial_Block {
 			if ( array_key_exists( 'id', $post_data ) ) {
 				$ref_id = $post_data[ 'id' ];
 				$post = get_post( $ref_id );
-				setup_postdata( &$post );
+				setup_postdata( $post );
 			}
 
 			if ( ! empty( $post ) ) {

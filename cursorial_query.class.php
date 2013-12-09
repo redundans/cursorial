@@ -52,7 +52,7 @@ class Cursorial_Query {
 			}
 		}
 
-		setup_postdata( &$post );
+		setup_postdata( $post );
 		$post_id = property_exists( $post, 'cursorial_ID' ) ? $post->cursorial_ID : $post->ID;
 		$post->post_title = apply_filters( 'the_title', $post->post_title );
 		$post->post_author = get_the_author();
