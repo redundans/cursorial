@@ -88,7 +88,8 @@ class Cursorial_Block {
 	 * @return void
 	 */
 	public function set_posts( $posts ) {
-		global $user_ID, $id;
+		global $user_ID, $id, $parent_id;
+		$parent_id = 0;
 		get_currentuserinfo();
 
 		// Delete all current posts
@@ -101,6 +102,11 @@ class Cursorial_Block {
 
 		foreach( $posts as $post_data ) {
 			$post = null;
+			if( !isset( $post_data[ 'depth' ] ) || $post_data[ 'depth' ] == 0 ):
+				$parent_id = 0;
+			else :
+				$parent_id = $last_id;
+			endif;
 
 			if ( array_key_exists( 'id', $post_data ) ) {
 				$ref_id = $post_data[ 'id' ];
@@ -111,7 +117,8 @@ class Cursorial_Block {
 			if ( ! empty( $post ) ) {
 				$fields = array(
 					'post_title' => '-',
-					'post_content' => ''
+					'post_content' => '',
+					'post_parent' => $parent_id
 				);
 
 				/**
@@ -168,6 +175,10 @@ class Cursorial_Block {
 
 				$time--;
 				$count++;
+
+				if( !isset( $post_data[ 'depth' ] ) || $post_data[ 'depth' ] == 0 ):
+					$last_id = $new_id;
+				endif;
 			}
 		}
 	}
