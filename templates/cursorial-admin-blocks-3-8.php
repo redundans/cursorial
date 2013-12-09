@@ -62,9 +62,9 @@
 											<?php if ( $block->block ) : ?>
 												<div id="cursorial-block-<?php echo $block->block->name; ?>" class="cursorial-block cursorial-block-<?php echo $block->block->name; ?>">
 													<div class="sidebar-name cursorial-block-name">
-														<div class="publishing-actions">
+														<!--<div class="publishing-actions">
 															<input type="submit" value="<?php _e( 'Save block', 'cursorial' ); ?>" class="button-primary cursorial-block-save" name="save_block" />
-														</div>
+														</div>-->
 														<h3><?php echo $block->block->label; ?></h3>
 														<div class="clear"></div>
 													</div><!-- .cursorial-block-name -->
