@@ -221,6 +221,9 @@
 					case 'post_save' :
 						$( this ).find( buttons[ i ] ).click( $.proxy( save, this ) ).hide();
 						break;
+					case 'post_cancel' :
+						$( this ).find( buttons[ i ] ).click( $.proxy( cancel, this ) ).hide();
+						break;
 					case 'post_remove' :
 						$( this ).find( buttons[ i ] ).click( $.proxy( remove, this ) );
 						break;
@@ -274,6 +277,7 @@
 
 				if ( typeof( buttons[ 'post_save' ] ) != 'undefined' ) {
 					$( this ).find( buttons.post_save ).show();
+					$( this ).find( buttons.post_cancel ).show();
 				}
 
 				var data = $( this ).data( 'cursorial-post-data' );
@@ -399,6 +403,61 @@
 
 			$( this ).find( '.cursorial-field' ).remove();
 			render.apply( this, [ data ] );
+			$( this ).parent().sortable( 'enable' );
+		}
+
+		/**
+		 * Simply cancel edit process
+		 * @function
+		 * @name cancel
+		 * @returns {void}
+		 */
+		function cancel() {
+			$( this ).removeClass( 'cursorial-post-edit' );
+
+			var buttons = $( this ).data( 'cursorial-post-buttons' );
+
+			if ( buttons ) {
+				if ( typeof( buttons[ 'post_edit' ] ) != 'undefined' ) {
+					$( this ).find( buttons.post_edit ).show();
+				}
+
+				if ( typeof( buttons[ 'post_save' ] ) != 'undefined' ) {
+					$( this ).find( buttons.post_save ).hide();
+				}
+
+				if ( typeof( buttons[ 'post_cancel' ] ) != 'undefined' ) {
+					$( this ).find( buttons.post_cancel ).hide();
+				}
+			}
+
+			var settings = $( this ).data( 'cursorial-post-settings' );
+			var data = $( this ).data( 'cursorial-post-data' );
+
+			var fieldSettings = getFieldSettings.apply( this );
+
+			for( var i in fieldSettings ) {
+				var hidden = $( this ).find( '.cursorial-hiddenoption-' + i );
+				if ( hidden.length > 0 ) {
+					if ( hidden.find( 'input:not(:checked)' ).length > 0 ) {
+						data[ i + '_hidden' ] = true;
+					} else if ( typeof( data[ i + '_hidden' ] ) != 'undefined' ) {
+						delete data[ i + '_hidden' ];
+					}
+				}
+
+				var field = $( this ).find( '.cursorial-field-' + i );
+				if ( field.length > 0 ) {
+					data[ i ] = field.val();
+				}
+
+				$( this ).find( '.template-data-' + i ).show();
+				$( this ).find( '.cursorial-fieldset-' + i ).remove();
+			}
+
+			$( this ).parents( '.cursorial-block' ).cursorialBlock( 'savedStatus', false );
+
+			$( this ).find( '.cursorial-field' ).remove();
 			$( this ).parent().sortable( 'enable' );
 		}
 
