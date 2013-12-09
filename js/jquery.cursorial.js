@@ -145,7 +145,7 @@
 			var settings = $( this ).data( 'cursorial-post-settings' );
 
 			if ( placeholder.length > 0 ) {
-				placeholder.css( { visibility: 'visible' } );
+				placeholder.css( { visibility: 'visible', width: '100%' } );
 
 				placeholder.removeClass( 'cursorial-child-depth-1' );
 				setChildStatus.apply( this, [ false ] );
@@ -282,7 +282,7 @@
 
 				var data = $( this ).data( 'cursorial-post-data' );
 				var settings = $( this ).data( 'cursorial-post-settings' );
-				var fieldSettings = getFieldSettings.apply( this );	
+				var fieldSettings = getFieldSettings.apply( this );
 
 				for( var i in fieldSettings ) {
 					var element = $( this ).find( '.template-data-' + i );
