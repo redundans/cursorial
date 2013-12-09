@@ -129,3 +129,10 @@
 	border: 1px dashed red;
 	border-radius: 3px;
 }
+/* Fixes for wp-admin >= 3.8 */
+#cursorial-admin.cursorial-3-8 .widget-liquid-left {
+	width: 65%;
+}
+#cursorial-admin.cursorial-3-8 .widget-liquid-right {
+	width: 30%;
+}

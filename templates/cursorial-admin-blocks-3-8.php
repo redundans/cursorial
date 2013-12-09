@@ -35,7 +35,7 @@
 		} );
 	} );
 </script>
-<div id="cursorial-admin" class="wrap">
+<div id="cursorial-admin" class="wrap cursorial-3-8">
 	<div id="icon-themes" class="icon32"><br/></div>
 	<h2><?php printf( __( 'Cursorial » %s', 'cursorial' ), $cursorial_admin->label ); ?></h2>
 
