@@ -475,7 +475,7 @@ class Cursorial {
 		}*/
 
 		// Okidok
-		return $excerpt;
+		return wpautop( $excerpt );
 	}
 
 	/**
