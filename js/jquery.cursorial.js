@@ -289,6 +289,7 @@ $(function(){
 				var fieldSettings = getFieldSettings.apply( this );
 
 				for( var i in fieldSettings ) {
+					console.log(i);
 					var element = $( this ).find( '.template-data-' + i );
 
 					if ( element.length > 0 ) {
