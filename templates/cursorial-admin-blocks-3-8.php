@@ -62,9 +62,9 @@
 											<?php if ( $block->block ) : ?>
 												<div id="cursorial-block-<?php echo $block->block->name; ?>" class="cursorial-block cursorial-block-<?php echo $block->block->name; ?>">
 													<div class="sidebar-name cursorial-block-name">
-														<div class="publishing-actions">
+														<!--<div class="publishing-actions">
 															<input type="submit" value="<?php _e( 'Save block', 'cursorial' ); ?>" class="button-primary cursorial-block-save" name="save_block" />
-														</div>
+														</div>-->
 														<h3><?php echo $block->block->label; ?></h3>
 														<div class="clear"></div>
 													</div><!-- .cursorial-block-name -->
@@ -144,7 +144,9 @@
 								<p class="post-image template-data template-data-image"></p>
 								<p class="post-meta">
 									<span><?php _e( 'Author:', 'cursorial' ); ?> <span class="template-data-post_author"></span></span><br/>
-									<span><?php _e( 'Date:', 'cursorial' ); ?> <span class="template-data-post_date"></span></span>
+									<span><?php _e( 'Date:', 'cursorial' ); ?> <span class="template-data-post_date"></span></span><br />
+									<span><?php _e( 'Type:', 'cursorial' ); ?> <span class="template-data-post_type"></span></span><br />
+									<span class="template-data-post_permalink"></span>
 								</p>
 								<div class="post-excerpt template-data template-data-post_excerpt"></div>
 								<div class="widget-control-actions">

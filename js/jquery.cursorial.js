@@ -785,6 +785,7 @@ $(function(){
 
 			// Send data and start loader
 			$( this ).cursorialLoader( 'start' );
+			$( '.cursorial-block-saveall' ).attr( 'disabled','disabled' );
 			$.ajax( {
 				url: CURSORIAL_PLUGIN_URL + 'json.php',
 				type: 'POST',
@@ -792,9 +793,11 @@ $(function(){
 				dataType: 'json',
 				error: function( data ) {
 					$( block ).cursorialLoader( 'stop' );
+					$( '.cursorial-block-saveall' ).removeAttr('disabled');
 				},
 				success: function( data ) {
 					$( block ).cursorialLoader( 'stop' );
+					$( '.cursorial-block-saveall' ).removeAttr('disabled');
 					setSavedStatus.apply( block, [ true ] );
 					setSettings.apply( block, [ data.blocks ] );
 					render.apply( block, [ data.results ] );

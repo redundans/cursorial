@@ -63,6 +63,17 @@ class Cursorial_Query {
 		$post->cursorial_image = wp_get_attachment_image_src( $post->image );
 		$post->cursorial_depth = apply_filters( 'cursorial_depth', ( int ) get_post_meta( $post_id, 'cursorial-post-depth', true ) );
 
+		$ref_id = get_post_meta( $post_id, 'cursorial-post-id', true );
+		if ( $ref_id && $post->post_type == Cursorial::POST_TYPE ) {
+			$original = get_post( $ref_id );
+			if ( $original ) {
+				$post->post_type = $original->post_type;
+				$post->post_permalink = get_permalink( $original );
+			}
+		} else {
+			$post->post_permalink = get_permalink( $post_id );
+		}
+
 		$hidden_fields = get_post_meta( $post_id, 'cursorial-post-hidden-fields', true );
 
 		if ( is_array( $hidden_fields ) ) {

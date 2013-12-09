@@ -137,7 +137,6 @@
 	width: 30%;
 }
 
-
 #upload_image_thumbnail img {
 	margin-top: 1em;
 	max-width: 100%;
@@ -146,4 +145,8 @@
 #submit_post {
 	margin-top: 1em;
 	float: right;
+
+
+#cursorial-admin.cursorial-3-8 .template-data-post_permalink {
+	word-break: break-all;
 }
