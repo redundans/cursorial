@@ -351,7 +351,7 @@ class Cursorial {
 
 					return sprintf(
 						'<img src="%s" width="%s" height="%s" class="wp-post-image attachment-%s%s"%s/>',
-						$image_src[ 0 ], $image_src[ 1 ], $image[ 2 ], $size, $classes, $attr_str
+						$image_src[ 0 ], $image_src[ 1 ], $image_src[ 2 ], $size, $classes, $attr_str
 					);
 				}
 			}
