@@ -507,11 +507,7 @@ class Cursorial {
 		$original = $this->get_original( $id );
 
 		if ( $original ) {
-			if ( $original->post_type === 'ghost' ) {
-				return get_post_meta( $original->ID, 'ghost_link', true );
-			} else {
-				return get_permalink( $original->ID );
-			}
+			return get_permalink( $original->ID );
 		}
 
 		return $permalink;
