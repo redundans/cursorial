@@ -1186,7 +1186,7 @@ $(function(){
 				post_guid: $("#post_guid").val(),
 				image_id: $("#upload_image").val(),
 			};
-	  		if( data.post_title == '' || data.post_content == '' || data.post_guid == '' ){
+	  		if( data.post_title == '' || data.post_content == '' ){
 	  			alert('Please make sure you didnt miss any post data.');
 	  			return false;
 	  		}
