@@ -166,10 +166,10 @@
 					</div><!-- #cursorial-search-result -->
 				</div><!-- .widgets-sortables -->
 			</div><!-- #cursorial-search -->
-				<div id="cursorial-create" class="postbox widgets-holder-wrap">
-					<h3 class="sidebar-name"><span><?php _e( 'Create content', 'cursorial' ); ?></span></h3>
-					<div class="inside">
-						<form id="create_cursorial">
+			<div id="cursorial-create" class="postbox widgets-holder-wrap">
+				<h3 class="sidebar-name"><span><?php _e( 'Create content', 'cursorial' ); ?></span></h3>
+				<div class="inside">
+					<form id="create_cursorial">
 
 						<label for="post_title"><?php _e( 'Title', 'cursorial' ); ?>
 						<input type="text" id="post_title" name="post_title" class="widefat" autocomplete="off" value="">
@@ -191,10 +191,10 @@
 
 						<input type="submit" id="submit_post" name="submit_post" class="button button-primary button-large" value="<?php _e( 'Submit', 'cursorial' ); ?>">
 
-						</form>
-						<div class="clear"></div>
-					</div>
-				</div><!-- #cursorial-create -->
+					</form>
+					<div class="clear"></div>
+				</div>
+			</div><!-- #cursorial-create -->
 		</div><!-- #widgets-right -->
 	</div><!-- .widgets-liquid-right -->
 
