@@ -162,7 +162,7 @@ class Cursorial_Block {
 
 				add_post_meta( $new_id, 'cursorial-post-id', $ref_id, true );
 				add_post_meta( $new_id, 'cursorial-post-depth', isset( $post_data[ 'depth' ] ) ? $post_data[ 'depth' ] : 0, true );
-				if(  isset( $post_data[ 'ghost_permalink' ] ) &&  $post_data[ 'ghost_permalink' ] != '' ){
+				if ( isset( $post_data[ 'ghost_permalink' ] ) ) {
 					update_post_meta( $ref_id, 'ghost_link', $post_data[ 'ghost_permalink' ] );
 					update_post_meta( $new_id, 'ghost_link', $post_data[ 'ghost_permalink' ] );
 				}
