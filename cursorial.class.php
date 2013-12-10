@@ -507,7 +507,11 @@ class Cursorial {
 		$original = $this->get_original( $id );
 
 		if ( $original ) {
-			return get_permalink( $original->ID );
+			if ( $original->post_type === 'ghost' ) {
+				return get_post_meta( $original->ID, 'ghost_link', true );
+			} else {
+				return get_permalink( $original->ID );
+			}
 		}
 
 		return $permalink;
@@ -674,11 +678,11 @@ class Cursorial {
 		$post_content = $_POST['post_content'];
 		$post_guid = $_POST['post_guid'];
 
-		$post_id = wp_insert_post( array( 'post_content' => $post_content, 'post_title' => $post_title, 'guid' => $post_guid, 'post_type' => 'ghost', 'post_status' => 'publish' ) ); 
+		$post_id = wp_insert_post( array( 'post_content' => $post_content, 'post_title' => $post_title, 'guid' => $post_guid, 'post_type' => 'ghost', 'post_status' => 'publish' ) );
 
-		add_post_meta($post_id, 'ghost_link', $post_guid, TRUE); 
-		
-		if($_POST['image_id'] != '') 
+		add_post_meta($post_id, 'ghost_link', $post_guid, TRUE);
+
+		if($_POST['image_id'] != '')
 			set_post_thumbnail( $post_id, $_POST['image_id'] );
 
 		echo $post_id;
