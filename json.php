@@ -19,7 +19,7 @@ $blocks = array();
 
 switch ( strtolower( $_POST[ 'action' ] ) ) {
 	case 'search':
-		$query->search( $_POST[ 'query' ] );
+		$query->search( $_POST[ 'query' ], $_POST[ 'blogid' ] );
 		break;
 	case 'blogs':
 		$query->blogs( $_POST[ 'query' ] );

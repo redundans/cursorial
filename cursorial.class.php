@@ -417,11 +417,13 @@ class Cursorial {
 		// If this post has a cursorial-post-id stored as meta-data and is a cursorial post
 		// type, then replace post-id with the real post id.
 		$ref_id = get_post_meta( $post->ID, 'cursorial-post-id', true );
+
 		if ( $ref_id && $post->post_type == Cursorial::POST_TYPE ) {
 			$post->cursorial_ID = $post->ID;
 			$post->ID = $ref_id;
 
 			$original = $this->get_original( $post->cursorial_ID );
+
 			if ( $original ) {
 				$post->cursorial_post_type = $original->post_type;
 			}
@@ -528,11 +530,19 @@ class Cursorial {
 	 * @return string
 	 */
 	public function the_permalink_filter( $permalink ) {
-		global $id;
+		global $id, $wpdb;
 		$original = $this->get_original( $id );
 
 		if ( $original ) {
-			return get_permalink( $original->ID );
+			if ( property_exists( $original, 'blogid' ) && $original->blogid !== $wpdb->blogid ) {
+				switch_to_blog( $original->blogid );
+				$pl = get_permalink( $original->ID );
+				restore_current_blog();
+			} else {
+				$pl = get_permalink( $original->ID );
+			}
+
+			return $pl;
 		}
 
 		return $permalink;
@@ -595,6 +605,7 @@ class Cursorial {
 	 * @return object
 	 */
 	private function get_original( $post_id ) {
+		global $wpdb;
 		$post = get_post( $post_id );
 
 		$original = null;
@@ -614,7 +625,21 @@ class Cursorial {
 				}
 
 				if ( ! $original ) {
-					$original = get_post( $original_id );
+					$blog_id = get_post_meta( $post_id, 'cursorial-blog-id', true );
+
+					if ( $blog_id && $blog_id !== $wpdb->blogid ) {
+						switch_to_blog( $blog_id );
+						$original = get_post( $original_id );
+						restore_current_blog();
+					} else {
+						$original = get_post( $original_id );
+					}
+
+
+					if ( is_object( $original ) ) {
+						$original->blogid = $blog_id;
+					}
+
 					$this->current_original = $original;
 				}
 			}

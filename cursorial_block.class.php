@@ -102,7 +102,8 @@ class Cursorial_Block {
 
 		foreach( $posts as $post_data ) {
 			$post = null;
-			if( !isset( $post_data[ 'depth' ] ) || $post_data[ 'depth' ] == 0 ):
+
+			if ( !isset( $post_data[ 'depth' ] ) || $post_data[ 'depth' ] == 0 ):
 				$parent_id = 0;
 			else :
 				$parent_id = $last_id;
@@ -111,7 +112,14 @@ class Cursorial_Block {
 			if ( array_key_exists( 'id', $post_data ) ) {
 				$ref_id = $post_data[ 'id' ];
 				$post = get_post( $ref_id );
-				setup_postdata( $post );
+
+				if ( array_key_exists( 'blogid', $post_data ) ) {
+					switch_to_blog( $post_data[ 'blogid' ] );
+					setup_postdata( $post );
+					restore_current_blog();
+				} else {
+					setup_postdata( $post );
+				}
 			}
 
 			if ( ! empty( $post ) ) {
@@ -160,12 +168,18 @@ class Cursorial_Block {
 
 				$new_id = wp_insert_post( $fields );
 
+				if ( array_key_exists( 'blogid', $post_data ) ) {
+					add_post_meta( $new_id, 'cursorial-blog-id', $post_data[ 'blogid' ], true );
+				}
+
 				add_post_meta( $new_id, 'cursorial-post-id', $ref_id, true );
 				add_post_meta( $new_id, 'cursorial-post-depth', isset( $post_data[ 'depth' ] ) ? $post_data[ 'depth' ] : 0, true );
+
 				if ( isset( $post_data[ 'ghost_permalink' ] ) ) {
 					update_post_meta( $ref_id, 'ghost_link', $post_data[ 'ghost_permalink' ] );
 					update_post_meta( $new_id, 'ghost_link', $post_data[ 'ghost_permalink' ] );
 				}
+
 				add_post_meta( $new_id, 'cursorial-post-hidden-fields', $hidden_fields, true );
 				wp_set_post_terms( $new_id, $this->name, Cursorial::TAXONOMY, false );
 

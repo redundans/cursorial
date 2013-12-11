@@ -1,6 +1,4 @@
-<?php
-global $cursorial, $cursorial_admin;
-?>
+<?php global $cursorial, $cursorial_admin; ?>
 <script language="javascript" type="text/javascript">
 	jQuery( function( $ ) {
 		// Setup cursorial search field
@@ -45,6 +43,41 @@ global $cursorial, $cursorial_admin;
 		$( 'input.cursorial-block-saveall' ).click( function() {
 			$( '.cursorial-block' ).cursorialBlock( 'save' );
 		} );
+
+		$('#create_cursorial').submit(function( event ) {
+	  		event.preventDefault();
+			var data = {
+				action: 'add_ghost',
+				post_title: $("#post_title").val(),
+				post_content: $("#post_content").val(),
+				post_guid: $("#post_guid").val(),
+				image_id: $("#upload_image").val(),
+			};
+	  		if( data.post_title == '' || data.post_content == '' ){
+	  			alert('Please make sure you didnt miss any post data.');
+	  			return false;
+	  		}
+	  		jQuery.post(ajaxurl, data, function(response) {
+	  			$('#create_cursorial :not([type=submit])').each( function(i){
+	  				$(this).val('');
+	  			});
+	  			$("#upload_image_thumbnail").html('');
+
+	  			val = data.post_title.replace( /\s+/g, ' ' ).replace( /^\s|\s$/, '' );
+	  			$("#cursorial-search-field").val( val );
+
+	  			$.ajax( {
+					url: CURSORIAL_PLUGIN_URL + 'json.php',
+					type: 'POST',
+					data: {
+						action: 'search',
+						query: val
+					},
+					dataType: 'json',
+					success: $.proxy( results, this )
+				} );
+			});
+		});
 	} );
 </script>
 <div id="cursorial-admin" class="wrap">
@@ -162,6 +195,7 @@ global $cursorial, $cursorial_admin;
 							<div class="widget-inside">
 								<p class="post-image template-data template-data-image"></p>
 								<p class="post-meta">
+									<span class="template-data"><?php _e( 'Blog:', 'cursorial' ); ?> <span class="template-data-blogname"></span></span><br/>
 									<span class="template-data"><?php _e( 'Author:', 'cursorial' ); ?> <span class="template-data-post_author"></span></span><br/>
 									<span class="template-data"><?php _e( 'Date:', 'cursorial' ); ?> <span class="template-data-post_date"></span></span>
 								</p>

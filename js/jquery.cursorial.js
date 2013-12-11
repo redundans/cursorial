@@ -766,6 +766,11 @@ $(function(){
 
 					var fields = $( posts[ i ] ).data( 'cursorial-post-data' );
 					var settings = getSettings.apply( this, [ 'fields' ] );
+
+					if ( typeof fields[ 'blogid' ] !== 'undefined' ) {
+						post.blogid = fields.blogid;
+					}
+
 					for( var ii in settings ) {
 						if ( typeof( fields[ ii ] ) != 'undefined' ) {
 							if ( settings[ ii ].overridable ) {
@@ -783,6 +788,8 @@ $(function(){
 			}
 
 			var block = this;
+
+			console.log( data );
 
 			// Send data and start loader
 			$( this ).cursorialLoader( 'start' );
@@ -1168,6 +1175,7 @@ $(function(){
 					type: 'POST',
 					data: {
 						action: 'search',
+						blogid: e.data( 'cursorial-blog-id' ),
 						query: val
 					},
 					dataType: 'json',
@@ -1175,42 +1183,7 @@ $(function(){
 				} );
 				e.addClass( 'working' );
 			}
-		}
-
-		$('#create_cursorial').submit(function( event ) {
-	  		event.preventDefault();
-			var data = {
-				action: 'add_ghost',
-				post_title: $("#post_title").val(),
-				post_content: $("#post_content").val(),
-				post_guid: $("#post_guid").val(),
-				image_id: $("#upload_image").val(),
-			};
-	  		if( data.post_title == '' || data.post_content == '' ){
-	  			alert('Please make sure you didnt miss any post data.');
-	  			return false;
-	  		}
-	  		jQuery.post(ajaxurl, data, function(response) {
-	  			$('#create_cursorial :not([type=submit])').each( function(i){
-	  				$(this).val('');
-	  			});
-	  			$("#upload_image_thumbnail").html('');
-
-	  			val = data.post_title.replace( /\s+/g, ' ' ).replace( /^\s|\s$/, '' );
-	  			$("#cursorial-search-field").val( val );
-
-	  			$.ajax( {
-					url: CURSORIAL_PLUGIN_URL + 'json.php',
-					type: 'POST',
-					data: {
-						action: 'search',
-						query: val
-					},
-					dataType: 'json',
-					success: $.proxy( results, this )
-				} );
-			});
-		});
+		}	
 
 		/**
 		 * Sets a timeout until next search
@@ -1354,7 +1327,8 @@ $(function(){
 		 * @returns {void}
 		 */
 		function results( data ) {
-			var target = $( options.target );
+			var self = this,
+				target = $( options.target );
 			$( this ).removeClass( 'working' );
 
 			if ( target.length > 0 ) {
@@ -1369,17 +1343,23 @@ $(function(){
 					
 					for ( var name in data.results[ i ] ) {
 						template.find( '.template-data-' + name ).each( function() {
-							var el = $( this );
+							var e = $( this );
 
-							if ( el.is( 'input' ) ) {
-								el.val( data.results[ i ][ name ] );
+							if ( e.is( 'input' ) ) {
+								e.val( data.results[ i ][ name ] );
 							} else {
-								el.html( data.results[ i ][ name ] );
+								e.html( data.results[ i ][ name ] );
 							}
 						} );
+
+						template.click( $.proxy( setBlog, this, data.results[ i ].blog_id ) );
 					}
 				}
 			}
+		}
+
+		function setBlog( blogid ) {
+			$( options.search ).data( 'cursorial-blog-id', blogid );
 		}
 
 		/**

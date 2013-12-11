@@ -45,11 +45,17 @@ class Cursorial_Query {
 	 * @param object $post Post from a wp_query
 	 * @return void
 	 */
-	private function populate_results( $post ) {
+	private function populate_results( $post, $blog_id = 0 ) {
+		global $wpdb;
+
 		foreach( $this->results as $result ) {
 			if ( $result->ID === $post->ID ) {
 				return;
 			}
+		}
+
+		if ( ! $blog_id ) {
+			$blog_id = $wpdb->blogid;
 		}
 
 		setup_postdata( $post );
@@ -63,9 +69,25 @@ class Cursorial_Query {
 		$post->cursorial_image = wp_get_attachment_image_src( $post->image );
 		$post->cursorial_depth = apply_filters( 'cursorial_depth', ( int ) get_post_meta( $post_id, 'cursorial-post-depth', true ) );
 
+		$post->blogid = get_post_meta( $post_id, 'cursorial-blog-id', true );
+
+		if ( ! $post->blogid ) {
+			$post->blogid = $blog_id;
+		}
+
+		$post->blogname = get_blog_option( $post->blogid, 'blogname' );
+
 		$ref_id = get_post_meta( $post_id, 'cursorial-post-id', true );
+
 		if ( $ref_id && $post->post_type == Cursorial::POST_TYPE ) {
-			$original = get_post( $ref_id );
+			if ( $post->blogid !== $wpdb->blogid ) {
+				switch_to_blog( $post->blogid );
+				$original = get_post( $ref_id );
+				restore_current_blog();
+			} else {
+				$original = get_post( $ref_id );
+			}
+
 			if ( $original ) {
 				$post->post_type = $original->post_type;
 				$post->post_permalink = get_permalink( $original );
@@ -112,24 +134,30 @@ class Cursorial_Query {
 	 * @param string $terms Search keywords
 	 * @return void
 	 */
-	public function search( $terms ) {
+	public function search( $terms, $blog_id = 0 ) {
+		global $cursorial, $wpdb;
+
 		if ( count( $this->results ) >= $this->search_numberposts ) {
 			return;
 		}
 
-		$this->search_keywords = explode( ' ', trim( $terms ) );
-
-		if ( substr( $this->search_keywords[0], 0, 4) === 'http' ) {
-			$cursorial_search_id = url_to_postid( $this->search_keywords[0] );
+		if ( ! $blog_id ) {
+			$blog_id = $cursorial->get_default_blog_id();
 		}
 
-		if ( $cursorial_search_id != 0 ) {
+		$this->search_keywords = explode( ' ', trim( $terms ) );
+
+		if ( preg_match( '/^http(:?s)?:\/\//i', $this->search_keywords[ 0 ] ) ) {
+			$cursorial_search_id = url_to_postid( $this->search_keywords[ 0 ] );
+		}
+
+		if ( isset( $cursorial_search_id ) && $cursorial_search_id ) {
 			$post = get_post( $cursorial_search_id );
+
 			if ( $post->post_type != Cursorial::POST_TYPE ) {
 				$this->populate_results( $post );
 			}
 		} else {
-
 			$date = strtotime( $terms );
 
 			foreach ( array(
@@ -181,6 +209,8 @@ class Cursorial_Query {
 					'year' => date( 'Y', $date )
 				),
 			) as $field => $args ) {
+				switch_to_blog( $blog_id );
+
 				if ( is_string( $args ) ) {
 					add_filter( 'posts_where', array( &$this, $args ) );
 					$query = new WP_Query( 'post_type=any' );
@@ -192,13 +222,15 @@ class Cursorial_Query {
 					$posts = $query->get_posts();
 				}
 
+				restore_current_blog();
+
 				foreach ( $posts as $post ) {
 					if ( count( $this->results ) >= $this->search_numberposts ) {
 						break;
 					}
 
 					if ( $post->post_type != Cursorial::POST_TYPE ) {
-						$this->populate_results( $post );
+						$this->populate_results( $post, $blog_id );
 					}
 				}
 			}
