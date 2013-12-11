@@ -21,6 +21,9 @@ switch ( strtolower( $_POST[ 'action' ] ) ) {
 	case 'search':
 		$query->search( $_POST[ 'query' ] );
 		break;
+	case 'blogs':
+		$query->blogs( $_POST[ 'query' ] );
+		break;
 	case 'block':
 		$cursorial->prevent_hidden = true;
 		if ( array_key_exists( $_POST[ 'block' ], $cursorial->blocks ) ) {

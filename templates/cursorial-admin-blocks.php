@@ -1,4 +1,6 @@
-<?php global $cursorial_admin; ?>
+<?php
+global $cursorial, $cursorial_admin;
+?>
 <script language="javascript" type="text/javascript">
 	jQuery( function( $ ) {
 		// Setup cursorial search field
@@ -12,6 +14,15 @@
 			timeout: 1000, // For how long wait until search-query is posted to server
 			target: '#cursorial-search-result', // Where to place rendered posts
 			blocks: '.cursorial-block .cursorial-posts' // Where to find blocks to connect posts to
+		} );
+
+		$( 'input#cursorial-blog-search' ).cursorialBlogSearch( {
+			templates: {
+				blog: '#cursorial-blog-search-result .template'
+			},
+			timeout: 1000,
+			target: '#cursorial-blog-search-result',
+			search: '#cursorial-search-field'
 		} );
 
 		// Setup cursorial blocks
@@ -129,7 +140,15 @@
 					<div id="cursorial-search-form" class="widget">
 						<div class="widget-inside">
 							<p class="description"><?php _e( 'Enter keywords below to find content. Then drag the posts to a block and drop them there.', 'cursorial' ); ?></p>
-							<label for="cursorial-search-field"><?php _e( 'Search keywords:', 'cursorial' ); ?></label>
+							<label for="cursorial-blog-search-field"><?php _e( 'Blog search:', 'cursorial' ); ?></label>
+							<input id="cursorial-blog-search" class="widefat" type="text" value="<?php echo preg_replace('/^http:\/\/(.+?)\/$/', '$1', get_blogaddress_by_id( $cursorial->get_default_blog_id() ) ); ?>" name="blogname" />
+							<ul id="cursorial-blog-search-result">
+								<li class="template">
+									<input type="radio" name="blogid" class="template-data template-data-blog_id" />
+									<span class="template-data template-data-blogname"></span>
+								</li>
+							</ul>
+							<label for="cursorial-blog-search"><?php _e( 'Search keywords:', 'cursorial' ); ?></label>
 							<input id="cursorial-search-field" class="widefat" type="text" value="" name="query" />
 						</div><!-- .widget-inside -->
 					</div><!-- #cursorial-search-form -->
@@ -166,35 +185,35 @@
 			</div><!-- #cursorial-search -->
 
 			<div id="poststuff">
-			<div id="cursorial-create" class="postbox ">
-				<h3 class="hndle"><span><?php _e( 'Create content', 'cursorial' ); ?></span></h3>
-				<div class="inside">
-					<form id="create_cursorial">
+				<div id="cursorial-create" class="postbox ">
+					<h3 class="hndle"><span><?php _e( 'Create content', 'cursorial' ); ?></span></h3>
+					<div class="inside">
+						<form id="create_cursorial">
 
-					<label for="post_title"><?php _e( 'Title', 'cursorial' ); ?>
-					<input type="text" id="post_title" name="post_title" class="widefat" autocomplete="off" value="">
-					</label>
+						<label for="post_title"><?php _e( 'Title', 'cursorial' ); ?>
+						<input type="text" id="post_title" name="post_title" class="widefat" autocomplete="off" value="">
+						</label>
 
-					<label for="upload_image">
-						<div id="upload_image_thumbnail"></div>
-					    <input id="upload_image" type="hidden" size="36" name="ad_image" value="http://" /> 
-					    <p><a id="upload_image_button"><?php _e( 'Choose image', 'cursorial' ); ?></a></p>
-					</label>
+						<label for="upload_image">
+							<div id="upload_image_thumbnail"></div>
+							<input id="upload_image" type="hidden" size="36" name="ad_image" value="http://" /> 
+							<p><a id="upload_image_button"><?php _e( 'Choose image', 'cursorial' ); ?></a></p>
+						</label>
 
-					<label for="post_content"><?php _e( 'Description', 'cursorial' ); ?>
-					<textarea id="post_content" name="post_content" class="widefat" autocomplete="off" value=""></textarea>
-					</label>
+						<label for="post_content"><?php _e( 'Description', 'cursorial' ); ?>
+						<textarea id="post_content" name="post_content" class="widefat" autocomplete="off" value=""></textarea>
+						</label>
 
-					<label for="post_guid"><?php _e( 'Link', 'cursorial' ); ?>
-					<input type="text" id="post_guid" name="post_guid" class="widefat" autocomplete="off" value="">
-					</label>
+						<label for="post_guid"><?php _e( 'Link', 'cursorial' ); ?>
+						<input type="text" id="post_guid" name="post_guid" class="widefat" autocomplete="off" value="">
+						</label>
 
-					<input type="submit" id="submit_post" name="submit_post" class="button button-primary button-large" value="<?php _e( 'Submit', 'cursorial' ); ?>">
+						<input type="submit" id="submit_post" name="submit_post" class="button button-primary button-large" value="<?php _e( 'Submit', 'cursorial' ); ?>">
 
-					</form>
-					<div class="clear"></div>
-				</div>
-			</div><!-- #cursorial-create -->
+						</form>
+						<div class="clear"></div>
+					</div>
+				</div><!-- #cursorial-create -->
 			</div>
 
 		</div><!-- #widgets-right -->

@@ -39,6 +39,11 @@ class Cursorial {
 	 */
 	private $current_original;
 
+	/**
+	 * Int with the default blog id
+	 */
+	public $default_blog_id;
+
 	// CONSTRUCTOR
 
 	/**
@@ -57,6 +62,7 @@ class Cursorial {
 	 * @return void
 	 */
 	public function init() {
+		$this->default_blog_id = get_current_blog_id();
 		$this->register_post_type();
 		load_plugin_textdomain( 'cursorial', false, CURSORIAL_PLUGIN_DIR_NAME . '/languages' );
 	}
@@ -244,6 +250,25 @@ class Cursorial {
 
 			$this->admin[ $label ]->add_blocks( $blocks );
 		}
+	}
+
+	/**
+	 * Sets the default blog id
+	 * @param int $blog_id Default blog id
+	 * @return void
+	 */
+	public function set_default_blog_id( $blog_id ) {
+		if ( get_blogaddress_by_id( $blog_id ) ) {
+			$this->default_blog_id = $blog_id;
+		}
+	}
+
+	/**
+	 * Gets the default blog id
+	 * @return int
+	 */
+	public function get_default_blog_id() {
+		return $this->default_blog_id;
 	}
 
 	/**

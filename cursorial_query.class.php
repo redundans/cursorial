@@ -205,6 +205,44 @@ class Cursorial_Query {
 		}
 	}
 
+	public function blogs( $query = '' ) {
+		global $wpdb;
+		$current_blog_id = $wpdb->blogid;
+
+		if( is_numeric( $query ) ) {
+			$query = $wpdb->get_results( sprintf(
+				'SELECT `blog_id`, `domain` FROM `%s` WHERE `blog_id` = "%d" AND `public` = "1" AND `archived` = "0"',
+				addslashes( $wpdb->blogs ),
+				addslashes( $query )
+			), ARRAY_A );
+		} elseif( ! empty( $query ) ) {
+			$query = $wpdb->get_results( sprintf(
+				'SELECT `blog_id`, `domain` FROM `%s` WHERE `domain` LIKE "%%%s%%" AND `public` = "1" AND `archived` = "0"',
+				addslashes( $wpdb->blogs ),
+				addslashes( $query )
+			), ARRAY_A );
+		}
+
+		if( is_array( $query ) && ! empty( $query ) ) {
+			foreach( $query as $blog ) {
+				$wpdb->set_blog_id( $blog[ 'blog_id' ] );
+
+				$subquery = $wpdb->get_results( sprintf(
+					'SELECT `option_name`, `option_value` FROM `%s` WHERE `option_name` IN ( "siteurl", "blogname", "blogdescription" )',
+					addslashes( $wpdb->options )
+				), ARRAY_A );
+
+				foreach( $subquery as $opt ) {
+					$blog[ $opt[ 'option_name' ] ] = esc_attr( $opt[ 'option_value' ] );
+				}
+
+				$this->results[] = $blog;
+			}
+
+			$wpdb->set_blog_id( $current_blog_id );
+		}
+	}
+
 	/**
 	 * Makes a query for all posts in specified block and populates the results-array.
 	 *

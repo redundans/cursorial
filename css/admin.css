@@ -22,7 +22,8 @@
 	margin: 0 12px 12px;
 }
 
-#cursorial-search-result .template {
+#cursorial-search-result .template,
+#cursorial-blog-search-result .template {
 	display: none;
 }
 

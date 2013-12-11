@@ -1161,7 +1161,7 @@ $(function(){
 		 */
 		function search() {
 			var e = $( this ), val = e.val().replace( /\s+/g, ' ' ).replace( /^\s|\s$/, '' );
-			if ( e.data( 'cursorial-search-last' ) != val ) {
+			if ( val.length > 0 && e.data( 'cursorial-search-last' ) != val ) {
 				e.data( 'cursorial-search-last', val );
 				$.ajax( {
 					url: CURSORIAL_PLUGIN_URL + 'json.php',
@@ -1263,7 +1263,7 @@ $(function(){
 		 */
 		return $( this ).each( function() {
 			// Set events
-			$( 'input#cursorial-search-field' ).keydown( searchByTimeout );
+			$( this ).keydown( searchByTimeout );
 
 			// Connect to blocks
 			$( options.target ).sortable( {
@@ -1278,6 +1278,115 @@ $(function(){
 				delay: 200,
 				distance: 30
 			} );
+		} );
+	};
+
+	/**
+	 * Handles blog searching
+	 * @function
+	 * @name cursorialBlogSearch
+	 * @memberOf $.fn
+	 * @param {object} options Search options
+	 *	timeout: integer in milliseconds between last keystroke and server request,
+	 *	templates: {
+	 *		blog: 'jQuery selector where to find a blog template',
+	 *	},
+	 *	target: 'jQuery selector where to place all blogs'
+	 */
+	$.fn.cursorialBlogSearch = function( options ) {
+
+		// Set options default values
+		options = $.extend( {
+			timeout: 1000,
+			templates: {
+				blog: ''
+			},
+			target: '',
+			search: ''
+		}, options );
+
+		/**
+		 * Executes the search with a server request
+		 * @function
+		 * @name search
+		 * @returns {void}
+		 */
+		function search() {
+			var e = $( this ), val = e.val().replace( /\s+/g, ' ' ).replace( /^\s|\s$/, '' );
+			if ( val.length > 0 && e.data( 'cursorial-search-last' ) != val ) {
+				e.data( 'cursorial-search-last', val );
+				$.ajax( {
+					url: CURSORIAL_PLUGIN_URL + 'json.php',
+					type: 'POST',
+					data: {
+						action: 'blogs',
+						query: val
+					},
+					dataType: 'json',
+					success: $.proxy( results, this )
+				} );
+				e.addClass( 'working' );
+			}
+		}
+
+		/**
+		 * Sets a timeout until next search
+		 * If there's a keystroke, the timeout will be recreated.
+		 * If there's no keystroke, the timeout will call search()
+		 * @function
+		 * @name searchByTimeout
+		 * @returns {void}
+		 */
+		function searchByTimeout() {
+			var e = $( this );
+			clearTimeout( e.data( 'cursorial-search-timeout' ) );
+			var timeout = setTimeout( function() {
+				search.apply( e );
+			}, options.timeout );
+			e.data( 'cursorial-search-timeout', timeout );
+		}
+
+		/**
+		 * Renders the search result data in specified target with specified
+		 * template.
+		 * @function
+		 * @name results
+		 * @returns {void}
+		 */
+		function results( data ) {
+			var target = $( options.target );
+			$( this ).removeClass( 'working' );
+
+			if ( target.length > 0 ) {
+				var template = $( options.templates.blog );
+				target.find( '.cursorial-blog' ).remove();
+
+				for ( var i in data.results ) {
+					var template = $( options.templates.blog ).clone();
+					template.removeClass( 'template' );
+					template.addClass( 'cursorial-blog' );
+					target.append( template );
+					
+					for ( var name in data.results[ i ] ) {
+						template.find( '.template-data-' + name ).each( function() {
+							var el = $( this );
+
+							if ( el.is( 'input' ) ) {
+								el.val( data.results[ i ][ name ] );
+							} else {
+								el.html( data.results[ i ][ name ] );
+							}
+						} );
+					}
+				}
+			}
+		}
+
+		/**
+		 * Loops through matched elements
+		 */
+		return $( this ).each( function() {
+			$( this ).keydown( searchByTimeout );
 		} );
 	};
 

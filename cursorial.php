@@ -160,6 +160,16 @@ function cursorial_register_widgets() {
 	register_widget( 'Cursorial_Widget' );
 }
 
+/**
+ * Sets the default blog id to search, fetch and display posts from
+ * @param int $blog_id Default blog id
+ * @return void
+ */
+function set_cursorial_default_blog_id( $blog_id ) {
+	global $cursorial;
+	$cursorial->set_default_blog_id( $blog_id );
+}
+
 // Add the plugin initiator function to Wordpress
 add_action( 'init', array( $cursorial, 'init' ) );
 
