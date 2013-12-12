@@ -357,8 +357,12 @@ class Cursorial {
 	 * @return string
 	 */
 	public function get_image( $post, $size = 'medium', $attr = array() ) {
+		global $wpdb;
+
 		if ( is_object( $post ) ) {
 			$post_id = property_exists( $post, 'cursorial_ID' ) ? $post->cursorial_ID : $post->ID;
+			$blog_id = get_post_meta( $post_id, 'cursorial-blog-id', true );
+			$switched = false;
 
 			if ( $this->is_hidden( $post_id, 'image' ) ) {
 				return '';
@@ -367,7 +371,13 @@ class Cursorial {
 			$image_id = apply_filters( 'cursorial_image_id', get_post_thumbnail_id( $post_id ) );
 
 			if ( ! empty( $image_id ) ) {
+				if ( $blog_id && $blog_id !== $wpdb->blogid ) {
+					switch_to_blog( $blog_id );
+					$switched = true;
+				}
+
 				$image_src = wp_get_attachment_image_src( $image_id, $size );
+				$image_html = '';
 
 				if ( ! empty( $image_src ) ) {
 					$attr_str = '';
@@ -381,11 +391,17 @@ class Cursorial {
 						}
 					}
 
-					return sprintf(
+					$image_html = sprintf(
 						'<img src="%s" width="%s" height="%s" class="wp-post-image attachment-%s%s"%s/>',
 						$image_src[ 0 ], $image_src[ 1 ], $image_src[ 2 ], $size, $classes, $attr_str
 					);
 				}
+
+				if ( $switched ) {
+					restore_current_blog();
+				}
+
+				return $image_html;
 			}
 		}
 
@@ -556,7 +572,7 @@ class Cursorial {
 	 * @return string
 	 */
 	public function cursorial_image_id_filter( $image_id ) {
-		global $id;
+		global $id, $wpdb;
 
 		if ( empty( $image_id ) ) {
 			$original = $this->get_original( $id );
@@ -566,6 +582,13 @@ class Cursorial {
 			}
 
 			if ( $original ) {
+				$switched = false;
+
+				if ( property_exists( $original, 'blogid' ) && $original->blogid !== $wpdb->blogid ) {
+					switch_to_blog( $original->blogid );
+					$switched = true;
+				}
+
 				// Featured images are prioritized
 				$image_id = get_post_thumbnail_id( $original->ID );
 
@@ -590,6 +613,10 @@ class Cursorial {
 				if ( empty( $image_id ) ) {
 					// I was thinking of implementing images with just an url, instead of a wordpress attachment id.
 					// But I'll leave it for a while.
+				}
+
+				if ( $switched ) {
+					restore_current_blog();
 				}
 			}
 		}

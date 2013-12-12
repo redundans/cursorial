@@ -66,7 +66,6 @@ class Cursorial_Query {
 		$post->post_excerpt = apply_filters( 'the_excerpt', $post->post_excerpt );
 		$post->post_content = apply_filters( 'the_content', $post->post_content );
 		$post->image = apply_filters( 'cursorial_image_id', get_post_thumbnail_id( $post_id ) );
-		$post->cursorial_image = wp_get_attachment_image_src( $post->image );
 		$post->cursorial_depth = apply_filters( 'cursorial_depth', ( int ) get_post_meta( $post_id, 'cursorial-post-depth', true ) );
 
 		$post->blogid = get_post_meta( $post_id, 'cursorial-blog-id', true );
@@ -75,8 +74,20 @@ class Cursorial_Query {
 			$post->blogid = $blog_id;
 		}
 
-		$post->blogname = get_blog_option( $post->blogid, 'blogname' );
+		if ( $post->blogid !== $wpdb->blogid ) {
+			switch_to_blog( $post->blogid );
 
+			if ( ! property_exists( $post, 'cursorial_ID' ) ) {
+				$post->image = get_post_thumbnail_id( $post_id );
+			}
+
+			$post->cursorial_image = wp_get_attachment_image_src( $post->image );
+			restore_current_blog();
+		} else {
+			$post->cursorial_image = wp_get_attachment_image_src( $post->image );
+		}
+
+		$post->blogname = get_blog_option( $post->blogid, 'blogname' );
 		$ref_id = get_post_meta( $post_id, 'cursorial-post-id', true );
 
 		if ( $ref_id && $post->post_type == Cursorial::POST_TYPE ) {
