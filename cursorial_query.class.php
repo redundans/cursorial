@@ -59,6 +59,14 @@ class Cursorial_Query {
 		}
 
 		setup_postdata( $post );
+
+		if ( preg_match( '/^([0-9]+),([0-9]+)$/', $post->guid, $guid ) ) {
+			$post->ID = $guid[ 2 ];
+			$post->blogid = $guid[ 1 ];
+		} else {
+			$post->blogid = get_post_meta( $post_id, 'cursorial-blog-id', true );
+		}
+
 		$post_id = property_exists( $post, 'cursorial_ID' ) ? $post->cursorial_ID : $post->ID;
 		$post->post_title = apply_filters( 'the_title', $post->post_title );
 		$post->post_author = get_the_author();
@@ -67,8 +75,6 @@ class Cursorial_Query {
 		$post->post_content = apply_filters( 'the_content', $post->post_content );
 		$post->image = apply_filters( 'cursorial_image_id', get_post_thumbnail_id( $post_id ) );
 		$post->cursorial_depth = apply_filters( 'cursorial_depth', ( int ) get_post_meta( $post_id, 'cursorial-post-depth', true ) );
-
-		$post->blogid = get_post_meta( $post_id, 'cursorial-blog-id', true );
 
 		if ( ! $post->blogid ) {
 			$post->blogid = $blog_id;
