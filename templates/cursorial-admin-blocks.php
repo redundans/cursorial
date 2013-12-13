@@ -80,7 +80,9 @@
 		});
 	} );
 </script>
-<div id="cursorial-admin" class="wrap">
+<?php if ( version_compare( $GLOBALS['wp_version'], '3.8-alpha', '>' ) ) $class = 'cursorial-3-8'; ?>
+
+<div id="cursorial-admin" class="wrap <?php echo $class; ?>">
 	<div id="icon-themes" class="icon32"><br/></div>
 	<h2><?php printf( __( 'Cursorial » %s', 'cursorial' ), $cursorial_admin->label ); ?></h2>
 
@@ -218,7 +220,6 @@
 				</div><!-- .widgets-sortables -->
 			</div><!-- #cursorial-search -->
 
-			<div id="poststuff">
 				<div id="cursorial-create" class="postbox ">
 					<h3 class="hndle"><span><?php _e( 'Create content', 'cursorial' ); ?></span></h3>
 					<div class="inside">
@@ -230,7 +231,7 @@
 
 						<label for="upload_image">
 							<div id="upload_image_thumbnail"></div>
-							<input id="upload_image" type="hidden" size="36" name="ad_image" value="http://" /> 
+							<input id="upload_image" type="hidden" size="36" name="ad_image" value="http://" />
 							<p><a id="upload_image_button"><?php _e( 'Choose image', 'cursorial' ); ?></a></p>
 						</label>
 
@@ -248,7 +249,6 @@
 						<div class="clear"></div>
 					</div>
 				</div><!-- #cursorial-create -->
-			</div>
 
 		</div><!-- #widgets-right -->
 	</div><!-- .widgets-liquid-right -->

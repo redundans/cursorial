@@ -132,10 +132,10 @@
 }
 /* Fixes for wp-admin >= 3.8 */
 #cursorial-admin.cursorial-3-8 .widget-liquid-left {
-	width: 65%;
+	width: 74%;
 }
 #cursorial-admin.cursorial-3-8 .widget-liquid-right {
-	width: 30%;
+	width: 25%;
 }
 
 #upload_image_thumbnail img {
@@ -146,8 +146,8 @@
 #submit_post {
 	margin-top: 1em;
 	float: right;
-
-
-#cursorial-admin.cursorial-3-8 .template-data-post_permalink {
+}
+#cursorial-admin.cursorial-3-8 .template-data-post_permalink,
+#cursorial-admin.cursorial-3-8 .template-data-post_excerpt {
 	word-break: break-all;
 }
