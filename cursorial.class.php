@@ -444,6 +444,7 @@ class Cursorial {
 			$original = $this->get_original( $post->cursorial_ID );
 
 			if ( $original ) {
+				$post->guid = $original->guid;
 				$post->cursorial_post_type = $original->post_type;
 			}
 		}
