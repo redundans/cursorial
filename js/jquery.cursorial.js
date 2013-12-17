@@ -1180,7 +1180,7 @@ $(function(){
 				} );
 				e.addClass( 'working' );
 			}
-		}	
+		}
 
 		/**
 		 * Sets a timeout until next search
@@ -1227,6 +1227,42 @@ $(function(){
 				}
 			}
 		}
+
+		$('#create_cursorial').submit(function( event ) {
+	  		event.preventDefault();
+			var data = {
+				action: 'add_ghost',
+				post_title: $("#post_title").val(),
+				post_content: $("#post_content").val(),
+				post_guid: $("#post_guid").val(),
+				image_id: $("#upload_image").val(),
+			};
+	  		if( data.post_title == '' || data.post_content == '' ){
+	  			alert('Please make sure you didnt miss any post data.');
+	  			return false;
+	  		}
+	  		jQuery.post(ajaxurl, data, function(response) {
+	  			$('#create_cursorial :not([type=submit])').each( function(i){
+	  				$(this).val('');
+	  			});
+	  			$("#upload_image_thumbnail").html('');
+
+	  			val = data.post_title.replace( /\s+/g, ' ' ).replace( /^\s|\s$/, '' );
+	  			$("#cursorial-search-field").val( val );
+
+	  			$.ajax( {
+					url: CURSORIAL_PLUGIN_URL + 'json.php',
+					type: 'POST',
+					data: {
+						action: 'search',
+						query: val,
+						blogid: 1
+					},
+					dataType: 'json',
+					success: $.proxy( results, this )
+				} );
+			});
+		});
 
 		/**
 		 * Loops through matched elements
@@ -1337,7 +1373,7 @@ $(function(){
 					template.removeClass( 'template' );
 					template.addClass( 'cursorial-blog' );
 					target.append( template );
-					
+
 					for ( var name in data.results[ i ] ) {
 						template.find( '.template-data-' + name ).each( function() {
 							var e = $( this );
