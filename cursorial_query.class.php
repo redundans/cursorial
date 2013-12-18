@@ -60,14 +60,15 @@ class Cursorial_Query {
 
 		setup_postdata( $post );
 
-		if ( preg_match( '/^([0-9]+),([0-9]+)$/', $post->guid, $guid ) ) {
+		if ( preg_match( '/[^0-9]*([0-9]+),([0-9]+)/', $post->guid, $guid ) ) {
 			$post->ID = $guid[ 2 ];
 			$post->blogid = $guid[ 1 ];
+			$post_id = property_exists( $post, 'cursorial_ID' ) ? $post->cursorial_ID : $post->ID;
 		} else {
+			$post_id = property_exists( $post, 'cursorial_ID' ) ? $post->cursorial_ID : $post->ID;
 			$post->blogid = get_post_meta( $post_id, 'cursorial-blog-id', true );
 		}
 
-		$post_id = property_exists( $post, 'cursorial_ID' ) ? $post->cursorial_ID : $post->ID;
 		$post->post_title = apply_filters( 'the_title', $post->post_title );
 		$post->post_author = get_the_author();
 		$post->post_date = apply_filters( 'the_date', $post->post_date );
