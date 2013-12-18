@@ -424,6 +424,45 @@ class Cursorial {
 		return 0;
 	}
 
+	public function set_media_query( $query ) {
+		$filename = '/wp-admin/media-upload.php';
+
+		if ( substr( $_SERVER[ 'SCRIPT_FILENAME' ], -( strlen( $filename ) ) ) == $filename ) {
+			$post_id = get_post_meta( $_GET[ 'post_id' ], 'cursorial-post-id', true );
+			$blog_id = get_post_meta( $_GET[ 'post_id' ], 'cursorial-blog-id', true );
+
+			if ( $blog_id ) {
+				switch_to_blog( $blog_id );
+			}
+
+			if ( $post_id ) {
+				$query->set( 'post_parent', $post_id );
+			}
+
+			add_filter( 'posts_results', array( &$this, 'after_set_media_query' ) );
+		}
+	}
+
+	public function after_set_media_query( $posts ) {
+		foreach ( $posts as $i => $post ) {
+			$posts[ $i ]->post_parent = ( int ) $_GET[ 'post_id' ];
+		}
+
+		return $posts;
+	}
+
+	public function set_upload_tabs( $tabs ) {
+		if ( substr( $_SERVER[ 'SCRIPT_FILENAME' ], -( strlen( $filename ) ) ) == $filename ) {
+			return array_merge( $tabs, array( 'cursorial' => 'Cursorial' ) );
+		}
+
+		return $tabs;
+	}
+
+	public function set_cursorial_upload_tab() {
+		do_action( 'media_upload_gallery' );
+	}
+
 	/**
 	 * Action hook that adds data to the $post-object if it's a cursorial-post.
 	 * It replaces the ID property with the original and stores the

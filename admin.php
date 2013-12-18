@@ -22,3 +22,12 @@ add_action( 'admin_menu', array( $cursorial, 'admin_menu' ) );
 
 // Add the plugin action for admin_head
 add_action( 'admin_head', array( $cursorial, 'head' ) );
+
+//
+add_action( 'pre_get_posts', array( $cursorial, 'set_media_query' ) );
+
+//
+add_filter( 'media_upload_tabs', array( $cursorial, 'set_upload_tabs' ) );
+
+//
+add_action( 'media_upload_cursorial', array( $cursorial, 'set_cursorial_upload_tab' ) );

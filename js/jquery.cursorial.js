@@ -325,7 +325,7 @@ $(function(){
 										var imageId = $( this ).data( 'cursorial-post-data' ).image;
 										field = $(
 											'<input class="cursorial-field cursorial-field-' + i + '" type="hidden" value="' + imageId + '"/>' +
-											'<a class="cursorial-field cursorial-image-link thickbox" href="media-upload.php?post_id=' + postId + '&amp;type=image&amp;TB_iframe=1&amp;width=640&height=546" title="' + cursorial_i18n( 'Set featured image' ) + '">' + cursorial_i18n( 'Set featured image' ) + '</a>'
+											'<a class="cursorial-field cursorial-image-link thickbox" href="media-upload.php?post_id=' + postId + '&amp;tab=cursorial&amp;type=image&amp;TB_iframe=1&amp;width=640&height=546" title="' + cursorial_i18n( 'Set featured image' ) + '">' + cursorial_i18n( 'Set featured image' ) + '</a>'
 										);
 										break;
 									default :
